@@ -15,10 +15,11 @@ RUN useradd minecraft --create-home --home-dir /minecraft --shell /bin/false
 WORKDIR "/minecraft"
 
 # Copy all the scripts into the container
-COPY scripts/healthcheck.py /minecraft/healthcheck.py
-COPY scripts/minecraft_rcon.py /minecraft/minecraft_rcon.py
-COPY scripts/server_properties.py /minecraft/server_properties.py
-COPY scripts/wrapper.py /minecraft/wrapper.py
+RUN mkdir -p /minecraft-scripts/
+COPY scripts/healthcheck.py /minecraft-scripts/healthcheck.py
+COPY scripts/minecraft_rcon.py /minecraft-scripts/minecraft_rcon.py
+COPY scripts/server_properties.py /minecraft-scripts/server_properties.py
+COPY scripts/wrapper.py /minecraft-scripts/wrapper.py
 
 # If running Vanilla Minecraft, only MINECRAFT_VERSION needs to be set. The
 # default value of MINECRAFT_SERVER_DOWNLOAD_URL will use MINECRAFT_VERSION to
@@ -27,13 +28,13 @@ COPY scripts/wrapper.py /minecraft/wrapper.py
 # variable MINECRAFT_SERVER_DOWNLOAD_URL and ignore MINECRAFT_VERSION.
 ENV MINECRAFT_SERVER_DOWNLOAD_URL "https://s3.amazonaws.com/Minecraft.Download/versions/${MINECRAFT_VERSION}/minecraft_server.${MINECRAFT_VERSION}.jar"
 
-RUN chmod +x /minecraft/healthcheck.py && \
-    chmod +x /minecraft/wrapper.py && \
+RUN chmod +x /minecraft-scripts/healthcheck.py && \
+    chmod +x /minecraft-scripts/wrapper.py && \
     chown minecraft -R /minecraft
 
 # Switch to minecraft user, created above
 USER minecraft
 
-ENTRYPOINT ["/minecraft/wrapper.py"]
+ENTRYPOINT ["/minecraft-scripts/wrapper.py"]
 
-HEALTHCHECK CMD ["healthcheck.py"]
+HEALTHCHECK CMD ["/minecraft-scripts/healthcheck.py"]
