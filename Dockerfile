@@ -1,10 +1,10 @@
-FROM debian:latest
+FROM openjdk:jre
 
 MAINTAINER Mark Ide Jr (https://www.mide.io)
 
 # Install the needed packages
 RUN apt-get update && \
-    apt-get -y install wget python3 openjdk-7-jre-headless && \
+    apt-get -y install wget python3 && \
     rm -rf /var/lib/apt/lists/*
 
 # Default JVM Options (Set default memory limit to 1G)
