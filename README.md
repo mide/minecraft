@@ -31,20 +31,7 @@ docker run \
 
 ## Usage (Non-Vanilla Minecraft)
 
-```bash
-# Copy configuraitons into Minecraft directory (If you have automation in
-# place, run that here; that shouldn't need to change).
-mkdir -p /srv/minecraft/
-cp ~/my_server.properties /srv/minecraft/server.properties
-echo "eula=true" > /srv/minecraft/eula.txt"
-
-# Start Minecraft Server
-docker run \
-  -e MINECRAFT_SERVER_DOWNLOAD_URL=https:\\fdfdf \
-  -v /minecraft:/srv/minecraft:rw \ # TODO CHECK
-  --publish 25565:25565 \
-  mide/minecraft:latest
-```
+Coming soon.
 
 ## Options & Settings
 
