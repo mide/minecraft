@@ -1,5 +1,7 @@
 # Minecraft Docker Image
 
+[![Docker](https://img.shields.io/docker/pulls/mide/minecraft.svg)](https://hub.docker.com/r/mide/minecraft/) [![Docker](https://img.shields.io/docker/stars/mide/minecraft.svg)](https://hub.docker.com/r/mide/minecraft/) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mide/minecraft/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/mide/minecraft.svg)](https://github.com/mide/minecraft/issues)
+
 ## Motivation
 
 **There are [many Minecraft Docker images](https://hub.docker.com/search/?isAutomated=0&isOfficial=0&page=1&pullCount=0&q=minecraft&starCount=0) already developed, why [develop another](https://xkcd.com/927/)?**
