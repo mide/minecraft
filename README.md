@@ -29,22 +29,17 @@ docker run \
   mide/minecraft:latest
 ```
 
-## Usage (Non-Vanilla Minecraft)
-
-Coming soon.
-
 ## Options & Settings
 
 ### Required
 
-|  Option | Expected Value | Location | Notes|
-|---|---|---|---|
+|  Option | Expected Value | Location |
+|---|---|---|
 | `enable-rcon` | `true` | `server.properties`  |
 | `rcon.password` | Your RCON Password  | `server.properties`  |
 | `rcon.port` | Your RCON Port | `server.properties`  |
 | `eula` | `true` | `eula.txt` |
-| `MINECRAFT_VERSION` | Something like `1.11.2`| Environment Variable| _Only needed if using Vanilla Minecraft. Do not set with `MINECRAFT_SERVER_DOWNLOAD_URL`._
-| `MINECRAFT_SERVER_DOWNLOAD_URL` | URL | Environment Variable| _Only needed if using Non-Vanilla Minecraft. Do not set with `MINECRAFT_VERSION`._
+| `MINECRAFT_VERSION` | Something like `1.11.2`| Environment Variable|
 
 ### Optional
 

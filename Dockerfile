@@ -21,13 +21,6 @@ COPY scripts/minecraft_rcon.py /minecraft-scripts/minecraft_rcon.py
 COPY scripts/server_properties.py /minecraft-scripts/server_properties.py
 COPY scripts/wrapper.py /minecraft-scripts/wrapper.py
 
-# If running Vanilla Minecraft, only MINECRAFT_VERSION needs to be set. The
-# default value of MINECRAFT_SERVER_DOWNLOAD_URL will use MINECRAFT_VERSION to
-# find the correct Vanilla Minecraft server jar. If you want to run a
-# non-vanilla Minecraft server (like Tekkit), you can set the environment
-# variable MINECRAFT_SERVER_DOWNLOAD_URL and ignore MINECRAFT_VERSION.
-ENV MINECRAFT_SERVER_DOWNLOAD_URL "https://s3.amazonaws.com/Minecraft.Download/versions/${MINECRAFT_VERSION}/minecraft_server.${MINECRAFT_VERSION}.jar"
-
 RUN chmod +x /minecraft-scripts/healthcheck.py && \
     chmod +x /minecraft-scripts/wrapper.py && \
     chown minecraft -R /minecraft

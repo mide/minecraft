@@ -13,12 +13,12 @@ def docker_stop_handler(signum, frame):
     minecraft_rcon.stop()
 
 def download_minecraft():
-    # Get MINECRAFT_SERVER_DOWNLOAD_URL from Environment Variable.
-    minecraft_url = os.environ.get("MINECRAFT_SERVER_DOWNLOAD_URL", default=None)
-    assert (minecraft_url is not None), "Expecting environment variable 'MINECRAFT_SERVER_DOWNLOAD_URL' to be set. It is not."
-    assert (minecraft_url != "https://s3.amazonaws.com/Minecraft.Download/versions//minecraft_server..jar"), "It appears you didn't set MINECRAFT_VERSION, so I wasn't able to determine the server URL. Please specify either MINECRAFT_VERSION (for vanilla) or MINECRAFT_SERVER_DOWNLOAD_URL (for non-vanilla)."
+    # Get MINECRAFT_VERSION from Environment Variable.
+    minecraft_version = os.environ.get("MINECRAFT_VERSION", default=None)
+    assert (minecraft_version is not None), "Expecting environment variable 'MINECRAFT_VERSION' to be set. It is not."
+    minecraft_url =  "https://s3.amazonaws.com/Minecraft.Download/versions/{}/minecraft_server.{}.jar".format(minecraft_version, minecraft_version)
 
-    print("Downloading Minecraft from URL: {}".format(minecraft_url))
+    print("Downloading Minecraft {} from URL: {}".format(minecraft_version, minecraft_url))
     subprocess.Popen(["wget", "-O", "minecraft_server.jar", minecraft_url]).wait()
 
 def run_minecraft():
