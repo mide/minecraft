@@ -24,7 +24,7 @@ echo "eula=true" > /srv/minecraft/eula.txt"
 # Start Minecraft Server
 docker run \
   -e MINECRAFT_VERISON=1.11.2 \
-  -v /minecraft:/srv/minecraft:rw \ # TODO CHECK
+  -v /srv/minecraft/:/minecraft/:rw \
   --publish 25565:25565 \
   mide/minecraft:latest
 ```
