@@ -11,7 +11,6 @@ RUN apt-get update && \
 ENV JAVA_TOOL_OPTIONS "-Xmx1024M -Xms1024M"
 
 # Add Minecraft user
-RUN useradd minecraft --create-home --home-dir /minecraft --shell /bin/false
 WORKDIR "/minecraft"
 
 # Copy all the scripts into the container
@@ -22,11 +21,7 @@ COPY scripts/server_properties.py /minecraft-scripts/server_properties.py
 COPY scripts/wrapper.py /minecraft-scripts/wrapper.py
 
 RUN chmod +x /minecraft-scripts/healthcheck.py && \
-    chmod +x /minecraft-scripts/wrapper.py && \
-    chown minecraft -R /minecraft
-
-# Switch to minecraft user, created above
-USER minecraft
+    chmod +x /minecraft-scripts/wrapper.py
 
 ENTRYPOINT ["/minecraft-scripts/wrapper.py"]
 
