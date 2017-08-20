@@ -25,4 +25,5 @@ RUN chmod +x /minecraft-scripts/healthcheck.py && \
 
 ENTRYPOINT ["/minecraft-scripts/wrapper.py"]
 
-HEALTHCHECK CMD --start-period=300 ["/minecraft-scripts/healthcheck.py"]
+HEALTHCHECK exit 0
+#CMD --start-period=300 ["/minecraft-scripts/healthcheck.py"]
