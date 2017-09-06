@@ -1,6 +1,6 @@
 # Minecraft Docker Image
 
-[![Docker](https://img.shields.io/docker/pulls/mide/minecraft.svg)](https://hub.docker.com/r/mide/minecraft/) [![Docker](https://img.shields.io/docker/stars/mide/minecraft.svg)](https://hub.docker.com/r/mide/minecraft/) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mide/minecraft/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/mide/minecraft.svg)](https://github.com/mide/minecraft/issues)
+[![Docker](https://img.shields.io/docker/pulls/mide/minecraft.svg)](https://hub.docker.com/r/mide/minecraft/) [![Docker](https://img.shields.io/docker/stars/mide/minecraft.svg)](https://hub.docker.com/r/mide/minecraft/) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mide/minecraft/master/LICENSE) [![GitHub issues](https://img.shields.io/github/issues/mide/minecraft.svg)](https://github.com/mide/minecraft/issues) [![Build Status](https://travis-ci.org/mide/minecraft.svg)](https://travis-ci.org/mide/minecraft)
 
 ## Motivation
 
