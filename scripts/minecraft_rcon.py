@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 
-import select
 import socket
 import struct
-import sys
 
 import server_properties
 

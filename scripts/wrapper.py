@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import time
 import signal
 import sys
 import subprocess
