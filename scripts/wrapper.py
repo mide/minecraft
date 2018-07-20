@@ -18,7 +18,7 @@ def download_minecraft():
     minecraft_url =  "https://s3.amazonaws.com/Minecraft.Download/versions/{}/minecraft_server.{}.jar".format(minecraft_version, minecraft_version)
     # Emergency patch: https://github.com/mide/minecraft/issues/1
     if minecraft_version == '1.13':
-        minecraft_url: "https://launcher.mojang.com/mc/game/1.13/server/d0caafb8438ebd206f99930cfaecfa6c9a13dca0/server.jar"
+        minecraft_url = "https://launcher.mojang.com/mc/game/1.13/server/d0caafb8438ebd206f99930cfaecfa6c9a13dca0/server.jar"
 
     print("Downloading Minecraft {} from URL: {}".format(minecraft_version, minecraft_url))
     subprocess.Popen(["wget", "-O", "minecraft_server.jar", minecraft_url]).wait()
