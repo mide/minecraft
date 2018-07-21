@@ -47,3 +47,7 @@ docker run \
 |---|---|---|---|
 |`JAVA_TOOL_OPTIONS` | JVM Settings, like heap size | `-Xmx1024M -Xms1024M` | Environment Variable|
 |`broadcast-rcon-to-ops` | Announce RCON commands to Server Ops | `false` ??? TODO | `server.properties`|
+
+## A Note On Versions
+
+This image used to download the server `.jar` by a special URL but with 1.13, Minecraft changed the pattern of releasing their files. This image has been updated to use the new method, and should continue to work for older versions. More testing in this area is likely needed.
