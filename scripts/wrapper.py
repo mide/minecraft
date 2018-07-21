@@ -17,7 +17,9 @@ MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
 # (one of the strings 'client' or 'server'), and returns a URL that can be used
 # to download the resource.
 def get_minecraft_download_url(version, download_type):
-    assert download_type in ['client', 'server'], "Invalid download_type. Expected client or server."
+    if download_type not in ['client', 'server']:
+        raise RuntimeError("Invalid download_type. Expected client or server.")
+
     with urllib.request.urlopen(MANIFEST_URL) as url:
         data = json.loads(url.read().decode())
     print("The latest Minecraft is {} (release) and {} (snapshot). You are requesting to download {}.".format(data['latest']['release'], data['latest']['snapshot'], version))
