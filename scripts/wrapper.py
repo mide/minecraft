@@ -12,6 +12,15 @@ import minecraft_rcon
 MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
 
 
+def get_json_from_url(url):
+    if not url.startswith("https://"):
+        raise RuntimeError("Expected URL to start with https://. It is '{}'.".format(url))
+    request = urllib.request.Request(url)
+    with urllib.request.urlopen(request) as response:
+        data = json.loads(response.read().decode())
+    return data
+
+
 # Minecraft now breaks their downloads up into two JSON API calls (instead of
 # predictable URLs). The following function takes a version and a download_type
 # (one of the strings 'client' or 'server'), and returns a URL that can be used
@@ -20,11 +29,7 @@ def get_minecraft_download_url(version, download_type):
     if download_type not in ['client', 'server']:
         raise RuntimeError("Invalid download_type. Expected client or server.")
 
-    if not MANIFEST_URL.startswith("https://");
-        raise RuntimeError("Expected MANIFEST_URL to be https://")
-    request = urllib.request.Request(MANIFEST_URL)
-    with urllib.request.urlopen(request) as response:
-        data = json.loads(response.read().decode())
+    data = get_json_from_url(MANIFEST_URL)
     print("The latest Minecraft is {} (release) and {} (snapshot). You are requesting to download {}.".format(data['latest']['release'], data['latest']['snapshot'], version))
 
     desired_versions = list(filter(lambda v: v['id'] == version, data['versions']))
@@ -35,12 +40,7 @@ def get_minecraft_download_url(version, download_type):
 
     version_manifest_url = desired_versions[0]['url']
     print("Found Version Metadata URL {} for version {}.".format(version_manifest_url, version))
-
-    if not version_manifest_url.startswith("https://");
-        raise RuntimeError("Expected version_manifest_url to be https://")
-    request = urllib.request.Request(version_manifest_url)
-    with urllib.request.urlopen(request) as response:
-        data = json.loads(response.read().decode())
+    data = get_json_from_url(version_manifest_url)
 
     download_url = data['downloads'][download_type]['url']
     print("Found final download URL for version {}. It is: {}".format(version, download_url))
