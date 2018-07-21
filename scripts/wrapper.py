@@ -20,6 +20,8 @@ def get_minecraft_download_url(version, download_type):
     if download_type not in ['client', 'server']:
         raise RuntimeError("Invalid download_type. Expected client or server.")
 
+    if not MANIFEST_URL.startswith("https://");
+        raise RuntimeError("Expected MANIFEST_URL to be https://")
     request = urllib.request.Request(MANIFEST_URL)
     with urllib.request.urlopen(request) as response:
         data = json.loads(response.read().decode())
@@ -34,6 +36,8 @@ def get_minecraft_download_url(version, download_type):
     version_manifest_url = desired_versions[0]['url']
     print("Found Version Metadata URL {} for version {}.".format(version_manifest_url, version))
 
+    if not version_manifest_url.startswith("https://");
+        raise RuntimeError("Expected version_manifest_url to be https://")
     request = urllib.request.Request(version_manifest_url)
     with urllib.request.urlopen(request) as response:
         data = json.loads(response.read().decode())
