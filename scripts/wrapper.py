@@ -20,8 +20,9 @@ def get_minecraft_download_url(version, download_type):
     if download_type not in ['client', 'server']:
         raise RuntimeError("Invalid download_type. Expected client or server.")
 
-    with urllib.request.urlopen(MANIFEST_URL) as url:
-        data = json.loads(url.read().decode())
+    request = urllib.request.Request(MANIFEST_URL)
+    with urllib.request.urlopen(request) as response:
+        data = json.loads(response.read().decode())
     print("The latest Minecraft is {} (release) and {} (snapshot). You are requesting to download {}.".format(data['latest']['release'], data['latest']['snapshot'], version))
 
     desired_versions = list(filter(lambda v: v['id'] == version, data['versions']))
@@ -33,8 +34,9 @@ def get_minecraft_download_url(version, download_type):
     version_manifest_url = desired_versions[0]['url']
     print("Found Version Metadata URL {} for version {}.".format(version_manifest_url, version))
 
-    with urllib.request.urlopen(version_manifest_url) as url:
-        data = json.loads(url.read().decode())
+    request = urllib.request.Request(version_manifest_url)
+    with urllib.request.urlopen(request) as response:
+        data = json.loads(response.read().decode())
 
     download_url = data['downloads'][download_type]['url']
     print("Found final download URL for version {}. It is: {}".format(version, download_url))
