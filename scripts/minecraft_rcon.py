@@ -5,8 +5,10 @@ import struct
 
 import server_properties
 
+
 def stop():
     send("stop")
+
 
 # NOTE: This has only been tested with "STOP" command. Your mileage may vary if
 # you try to use this code outside this context.
