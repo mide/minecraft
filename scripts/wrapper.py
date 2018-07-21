@@ -1,11 +1,39 @@
 #!/usr/bin/python3
 
-import signal
-import sys
-import subprocess
+import json
 import os
+import signal
+import subprocess
+import sys
+import urllib.request
 
 import minecraft_rcon
+
+MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
+
+# Minecraft now breaks their downloads up into two JSON API calls (instead of
+# predictable URLs). The following function takes a version and a download_type
+# (one of the strings 'client' or 'server'), and returns a URL that can be used
+# to download the resource.
+def get_minecraft_download_url(version, download_type):
+    assert download_type in ['client', 'server'], "Invalid download_type. Expected client or server."
+    with urllib.request.urlopen(MANIFEST_URL) as url:
+        data = json.loads(url.read().decode())
+    print("The latest Minecraft is {} (release) and {} (snapshot). You are requesting to download {}.".format(data['latest']['release'], data['latest']['snapshot'], version))
+
+    desired_versions = list(filter(lambda v: v['id'] == version, data['versions']))
+    assert len(desired_versions) != 0, "Couldn't find Minecraft Version {} in manifest file {}.".format(version, MANIFEST_URL)
+    assert len(desired_versions) == 1, "Found more than one record published for version {} in manifest file {}.".format(version, MANIFEST_URL)
+
+    version_manifest_url = desired_versions[0]['url']
+    print("Found Version Metadata URL {} for version {}.".format(version_manifest_url, version))
+
+    with urllib.request.urlopen(version_manifest_url) as url:
+        data = json.loads(url.read().decode())
+
+    download_url = data['downloads'][download_type]['url']
+    print("Found final download URL for version {}. It is: {}".format(version, download_url))
+    return download_url
 
 def docker_stop_handler(signum, frame):
     print("SIGTERM signal detected. Stopping server.")
@@ -15,10 +43,7 @@ def download_minecraft():
     # Get MINECRAFT_VERSION from Environment Variable.
     minecraft_version = os.environ.get("MINECRAFT_VERSION", default=None)
     assert (minecraft_version is not None), "Expecting environment variable 'MINECRAFT_VERSION' to be set. It is not."
-    minecraft_url =  "https://s3.amazonaws.com/Minecraft.Download/versions/{}/minecraft_server.{}.jar".format(minecraft_version, minecraft_version)
-    # Emergency patch: https://github.com/mide/minecraft/issues/1
-    if minecraft_version == '1.13':
-        minecraft_url = "https://launcher.mojang.com/mc/game/1.13/server/d0caafb8438ebd206f99930cfaecfa6c9a13dca0/server.jar"
+    minecraft_url =  get_minecraft_download_url(minecraft_version, 'server')
 
     print("Downloading Minecraft {} from URL: {}".format(minecraft_version, minecraft_url))
     subprocess.Popen(["wget", "-O", "minecraft_server.jar", minecraft_url]).wait()
